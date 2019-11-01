@@ -18,10 +18,10 @@ class EnrollMail {
       context: {
         plan_title: enroll.plan.title,
         student_name: enroll.student.name,
-        start_date: format(parseISO(enroll.start_date), "'dia' dd'/'MM'", {
+        start_date: format(parseISO(enroll.start_date), "dd'/'MM'/'yyyy", {
           locale: pt,
         }),
-        end_date: format(parseISO(enroll.end_date), "'dia' dd'/'MM'", {
+        end_date: format(parseISO(enroll.end_date), "dd'/'MM'/'yyyy", {
           locale: pt,
         }),
         total_price: enroll.price,
