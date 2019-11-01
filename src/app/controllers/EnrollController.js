@@ -46,6 +46,12 @@ class EnrollController {
     if (!(await schema.isValid(req.body))) {
       return res.status(400).send({ error: 'Data validation failed' });
     }
+    const studentExist = await Student.findByPk(req.body.student_id);
+
+    if (!studentExist) {
+      return res.status(400).send({ error: 'Student not found' });
+    }
+
     const enrollExist = await Enroll.findOne({
       where: { student_id: req.body.student_id },
     });
