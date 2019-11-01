@@ -1,27 +1,30 @@
 import { Router } from 'express';
-import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import StudentController from './app/controllers/StudentController';
+import PlanController from './app/controllers/PlanController';
+import EnrollController from './app/controllers/EnrollController';
 import authMiddleware from './app/middlewares/AuthMiddleware';
 
 const routes = new Router();
-// Decidi trabalhar com middlewares individuais
-// e chama-los onde for necessário, assim fica
-// mais fácil de organizar o arquivo de rotas
 
-// Rotas sessions
 routes.post('/sessions', SessionController.store);
 
-// Rotas users
-routes.post('/users', UserController.store);
-routes.put('/users', authMiddleware.defaultAuth, UserController.update);
+routes.use(authMiddleware);
 
-// Rotas students
-routes.post('/students', authMiddleware.defaultAuth, StudentController.store);
-routes.put(
-  '/students/:id',
-  authMiddleware.defaultAuth,
-  StudentController.update
-);
+// Students routes
+routes.post('/students', StudentController.store);
+routes.put('/students/:id', StudentController.update);
+
+// Plans routes
+routes.get('/plans/', PlanController.index);
+routes.post('/plans/', PlanController.store);
+routes.put('/plans/:id', PlanController.update);
+routes.delete('/plans/:id', PlanController.delete);
+
+// Enrolls routes
+routes.get('/enrolls/', EnrollController.index);
+routes.post('/enrolls/', EnrollController.store);
+routes.put('/enrolls/:student_id', EnrollController.update);
+routes.delete('/enrolls/:id', EnrollController.delete);
 
 export default routes;

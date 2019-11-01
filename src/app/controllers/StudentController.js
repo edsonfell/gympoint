@@ -1,5 +1,4 @@
 import * as Yup from 'yup';
-import User from '../models/User';
 import Student from '../models/Student';
 
 class StudentController {
@@ -17,15 +16,6 @@ class StudentController {
     });
     if (!(await schema.isValid(req.body))) {
       return res.status(400).send({ error: 'Data validation failed' });
-    }
-    const admUser = await User.findByPk(req.userId, {
-      where: { admin: true },
-    });
-
-    if (!admUser.admin) {
-      return res
-        .status(401)
-        .send({ error: 'Only administrators can register students' });
     }
 
     const studentExist = await Student.findOne({
@@ -56,25 +46,16 @@ class StudentController {
     if (!(await schema.isValid(req.body))) {
       return res.status(400).send({ error: 'Data validation failed' });
     }
-    const admUser = await User.findByPk(req.userId, {
-      where: { admin: true },
-    });
-
-    if (!admUser.admin) {
-      return res
-        .status(401)
-        .send({ error: 'Only administrators edit students information' });
-    }
 
     const student = await Student.findByPk(req.params.id);
 
     if (!student) {
       return res.status(400).send({ error: 'User not found' });
     }
-    const { emailCheck } = req.body;
+    const emailCheck = req.body.email;
     // Checando se o e-mail passado é diferente do cadastrado.
     // Caso seja, é pq o usuário quer alterar o e-mail
-    if (emailCheck !== student.email) {
+    if (emailCheck != null && emailCheck !== student.email) {
       const studentExists = await Student.findOne({
         where: { email: req.body.email },
       });

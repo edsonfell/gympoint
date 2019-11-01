@@ -15,6 +15,8 @@ class User extends Model {
         email: Sequelize.STRING,
         password: Sequelize.VIRTUAL,
         password_hash: Sequelize.STRING,
+        // Foi criado um campo admin caso em algum momento a aplicação
+        // venha ter usuários comuns
         admin: Sequelize.STRING,
       },
       {
