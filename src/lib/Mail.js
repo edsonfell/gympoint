@@ -12,8 +12,6 @@ class Mail {
       host,
       port,
       secure,
-      //
-      //
       auth: auth.user ? auth : null,
     });
     this.configureTemplates();

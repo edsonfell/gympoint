@@ -37,7 +37,7 @@ class EnrollController {
   }
 
   async store(req, res) {
-    // If we already have a plan for the student, you can only update it
+    // If we already have a plan for the student, it should be only updated
     const schema = Yup.object().shape({
       student_id: Yup.number().required(),
       plan_id: Yup.number().required(),

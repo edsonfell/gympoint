@@ -1,8 +1,9 @@
 import Bee from 'bee-queue';
 import EnrollMail from '../app/jobs/EnrollMail';
+import HelpOrderAnswerMail from '../app/jobs/HelpOrderAnswerMail';
 import redisConfig from '../config/redis';
 
-const jobs = [EnrollMail];
+const jobs = [EnrollMail, HelpOrderAnswerMail];
 
 class Queue {
   // Creating a queue for each kind of background job
